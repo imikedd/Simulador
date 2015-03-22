@@ -1,0 +1,273 @@
+import random
+
+
+class Especie:
+    def __init__(self, piel, pose, hocico, dieta, tam):
+        self.piel = piel
+        self.pose = pose
+        self.hocico = hocico
+        self.dieta = dieta
+        self.tam = tam
+
+    def getPiel(self):
+        return self.piel
+
+    def getPose(self):
+        return self.pose
+
+    def getHocico(self):
+        return self.hocico
+
+    def getDieta(self):
+        return self.dieta
+
+    def getTam(self):
+        return self.tam
+
+
+class Ecosistema:
+    def __init__(self, tipo, clima, vegetacion):
+        self.tipo = tipo
+        self.clima = clima
+        self.vegetacion = vegetacion
+
+    def getTipo(self, tipo):
+        return self.tipo
+
+    def getClima(self, clima):
+        return self.clima
+
+    def getvegetacion(self, vegetacion):
+        return self.vegetacion
+
+    def ganadores(self, especie):
+        return True
+
+
+especies = []
+
+
+class relacion:
+    Padre = ""
+    blanca = []
+    negra = []
+
+    def __init__(self):
+        Padre = ""
+
+    def relac(padre):
+        Padre = padre
+
+    def getblanca(self):
+        return self.blanca
+
+    def getNegra(self):
+        return self.negra
+
+    def getPadre(self):
+        return self.Padre
+
+    def setPadre(self, papa):
+        self.Padre = papa
+
+
+def ambiente():
+    print("Seleccione un numero dependiendo del ambiente deseado: ")
+    x = input(print("1.- Desierto, 2.- Pradera, 3.-Tundra, 4.-Bosque "))
+
+    if x == 1:
+        eco = Ecosistema('desierto', 'arido', 'baja')
+    elif x == 2:
+        eco = Ecosistema('pradera', 'calido', 'baja')
+    elif x == 3:
+        eco = Ecosistema('tundra', 'frio', 'baja')
+    else:
+        eco = Ecosistema('bosque', 'lluvioso', 'alta')
+    return eco
+
+def selNatural(ind, sist):
+    vive = 0
+    if especies[ind].getPiel() in sist.getblanca():
+        vive += 1
+    elif especies[ind].getPiel() in sist.getnegra():
+        vive -= 1
+
+    if especies[ind].getHocico() in sist.getblanca():
+        vive += 1
+    elif especies[ind].getHocico() in sist.getnegra():
+        vive -= 1
+
+    if especies[ind].getPose() in sist.getblanca():
+        vive += 1
+    elif especies[ind].getPose() in sist.getnegra():
+        vive -= 1
+
+    if especies[ind].getDieta() in sist.getblanca():
+        vive += 1
+    elif especies[ind].getDieta() in sist.getnegra():
+        vive -= 1
+
+    if especies[ind].getTam() in sist.getblanca():
+        vive += 1
+    elif especies[ind].getTam() in sist.getnegra():
+        vive -= 1
+
+    return vive
+
+def reproduccion(i,j):
+    hijo = Especie(especies[i].getPiel, especies[i].getPose(), especies[j].getHocico(), especies[j].getDieta(), especies[i].getTam())
+    especies.append(hijo)
+
+def main():
+    print("hola")
+
+    for i in range(0, 10):
+        inicializar()
+
+    for i in range(0, 10):
+        print(especies[i].getPiel())
+
+#----Teoria---------
+    relcalido = relacion()
+    relcalido.setPadre("calido")
+    #lista blanca
+    relcalido.blanca.append("escamas")
+
+    #lista negra
+    relcalido.negra.append("pelaje")
+
+    relarido = relacion()
+    relarido.setPadre("arido")
+    #lista blanca
+    relarido.blanca.append("escamas")
+    relarido.blanca.append("carnivoro")
+    relarido.negra.append("pelaje")
+    relarido.negra.append("herbivoro")
+
+    rellluvioso = relacion()
+    rellluvioso.setPadre("lluvioso")
+    #lista blanca
+    rellluvioso.blanca.append("biscosa")
+    rellluvioso.blanca.append("escamas")
+    rellluvioso.blanca.append("pelaje")
+
+    relfrio = relacion()
+    relfrio.setPadre("frio")
+    #lista blanca
+    relfrio.blanca.append("pelaje")
+    relfrio.blanca.append("homnivoro")
+
+    #lista negra
+    relfrio.negra.append("escamas")
+    relfrio.negra.append("biscosa")
+
+    relalta = relacion()
+    relalta.setPadre("alta")
+    #lista blanca
+    relalta.blanca.append("bipedo")
+    relalta.blanca.append("herbivoro")
+    relalta.blanca.append("homnivoro")
+
+    #lista negra
+    relalta.negra.append("cuadrupedo")
+
+    relbaja = relacion()
+    relbaja.setPadre("baja")
+    #lista blanca
+    relbaja.blanca.append("cuadrupedos")
+    relbaja.blanca.append("herbivoro")
+    relbaja.blanca.append("homnivoro")
+
+    #lista negra
+    relbaja.negra.append("bipedo")
+
+    reldesierto = relacion()
+    reldesierto.setPadre("desierto")
+    #lista blanca
+    reldesierto.blanca.append("escamosa")
+    reldesierto.blanca.append("cuadrupedo")
+    reldesierto.blanca.append("carnivoro")
+
+    #lista negra
+    reldesierto.negra.append("pelaje")
+    reldesierto.negra.append("herbivoro")
+
+    relbosque = relacion()
+    relbosque.setPadre("bosque")
+    #lista blanca
+    relbosque.blanca.append("pelaje")
+    relbosque.blanca.append("biscosa")
+    relbosque.blanca.append("bipedos")
+
+    #lista negra
+    relbosque.negra.append("cuadrupedos")
+
+    reltundra = relacion()
+    reltundra.setPadre("tundra")
+    #lista blanca
+    reltundra.blanca.append("pelaje")
+    reltundra.blanca.append("bipedos")
+
+    #lista negra
+    reltundra.negra.append("escamas")
+    reltundra.negra.append("biscoso")
+
+    relpradera = relacion()
+    relpradera.setPadre("pradera")
+    #lista blanca
+    relpradera.blanca.append("cuadrupedo")
+    relpradera.blanca.append("carnivoro")
+
+    #lista negra
+    relpradera.negra.append("biscoso")
+
+    sistema = ambiente()
+
+    
+
+
+def inicializar():
+    a = random.randrange(3)
+
+    if a == 0:
+        piel = "escamas"
+    elif a == 1:
+        piel = "pelaje"
+    else:
+        piel = "biscosa"
+
+    a = random.randrange(2)
+    if a == 0:
+        pose = "bipedo"
+    else:
+        pose = "cuadrupedo"
+
+    a = random.randrange(3)
+    if a == 0:
+        hocico = "dientes"
+    elif a == 1:
+        hocico = "colmillos"
+    else:
+        hocico = "pico"
+
+    a = random.randrange(3)
+    if a == 0:
+        dieta = "carnivoro"
+    elif a == 1:
+        dieta = "herbivoro"
+    else:
+        dieta = "homnivoro"
+
+    a = random.randrange(2)
+    if a == 0:
+        tam = "grande"
+    else:
+        tam = "chico"
+    aux = Especie(piel, pose, hocico, dieta, tam)
+    especies.append(aux)
+
+
+if __name__ == "__main__":
+    main()
+
+
